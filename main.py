@@ -1,10 +1,6 @@
 
 import os
-from openpyxl import Workbook
 from Modulos.class_pokemon import *
-
-wb = Workbook()
-ws = wb.active
 
 def menu():
     print("\n Bienvenido al menu de la pokeAPI \n")
@@ -24,24 +20,32 @@ def EsperarTecla(num):
         return 1
     esperar = input("Lo siento a ocurrido un error inesperado,"
                     "ingrese cualquier tecla para volver al menu principal \n")
-    return 0
 
 def buscar_pokemon():
+    try:
         nombre = input("Ingresa el nombre del pokemon o su numero en la pokedex:")
         poke = Pokemon(nombre.lower())
-        poke.buscar()
+        diccionario_poke:dict = poke.Buscar()
+        imprimir_poke(diccionario_poke['name'],diccionario_poke['id'],diccionario_poke['tipo'])
+        EsperarTecla(1)
+    except:
+        EsperarTecla(3)
 
-def MenuLocal():
-    nombre = input("Ingresa el nombre del pokemon o su numero en la pokedex:")
-    wb.save("pokemones.xlsx")
+def PokeLocal():
+    try:
+        nombre = input("Ingresa el nombre del pokemon o su numero en la pokedex:")
+        poke =  Pokemon(nombre.lower())
+        poke.BuscarLocal()
+        EsperarTecla(1)
+    except:
+        EsperarTecla(3)
 
 while True:
     opcion = menu()
     if opcion == "1":
         buscar_pokemon()
-        EsperarTecla(1)
     elif opcion == "2":
-        MenuLocal()
+        PokeLocal()
     elif opcion == "3":
         EsperarTecla(1)
         break
