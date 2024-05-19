@@ -31,15 +31,21 @@ def buscar_pokemon():
         poke = Pokemon(nombre.lower())
         poke.buscar()
 
+def MenuLocal():
+    nombre = input("Ingresa el nombre del pokemon o su numero en la pokedex:")
+    wb.save("pokemones.xlsx")
+
 while True:
     opcion = menu()
     if opcion == "1":
         buscar_pokemon()
         EsperarTecla(1)
     elif opcion == "2":
-        pass
+        MenuLocal()
     elif opcion == "3":
         EsperarTecla(1)
         break
     else:
         EsperarTecla(2)
+
+
