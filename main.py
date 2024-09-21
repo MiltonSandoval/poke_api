@@ -1,5 +1,4 @@
 
-import os
 from Modulos.class_pokemon import *
 
 def menu():
@@ -18,6 +17,9 @@ def EsperarTecla(num):
     elif num == 2:
         esperar = input("Ingresa una opcion Valida!!! \n")
         return 1
+    elif num == 3:
+        esperar = input("Error de conexion")
+        return 1
     esperar = input("Lo siento a ocurrido un error inesperado,"
                     "ingrese cualquier tecla para volver al menu principal \n")
 
@@ -28,8 +30,10 @@ def buscar_pokemon():
         diccionario_poke:dict = poke.Buscar()
         imprimir_poke(diccionario_poke['name'],diccionario_poke['id'],diccionario_poke['tipo'])
         EsperarTecla(1)
-    except:
+    except requests.ConnectionError:
         EsperarTecla(3)
+    except:
+        EsperarTecla(4)
 
 def PokeLocal():
     try:
@@ -37,8 +41,11 @@ def PokeLocal():
         poke =  Pokemon(nombre.lower())
         poke.BuscarLocal()
         EsperarTecla(1)
-    except:
+    except requests.ConnectionError:
         EsperarTecla(3)
+        print("Lo sentimos no se logro agregar a la base local el pokemon que esta buscando \n")
+    except ValueError:
+        print("Error asegurate de escribir bien el nombre de tu pokemon")
 
 while True:
     opcion = menu()

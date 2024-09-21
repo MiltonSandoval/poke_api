@@ -16,7 +16,7 @@ class Pokemon:
 
     def Buscar(self):
         poke_dict = {}
-        url = f"http://pokeapi.co/api/v2/pokemon/{self.nombre}/"
+        url = f"https://pokeapi.co/api/v2/pokemon/{self.nombre}/"
         req = requests.get(url, verify=False)
         Pokedex = req.json()
         poke_dict['name'] = Pokedex['name']
